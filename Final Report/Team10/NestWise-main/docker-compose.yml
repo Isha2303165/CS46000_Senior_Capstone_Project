@@ -1,0 +1,126 @@
+name: nestwise
+
+services:
+  # FRONTEND (React)
+  nestwise-frontend:
+    build: ./frontend
+    container_name: nestwise-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - HOST=0.0.0.0
+      - PORT=3000
+      - CHOKIDAR_USEPOLLING=true
+    restart: unless-stopped
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    env_file: ./.env
+    command: npm start
+    networks:
+      - default
+
+  # BACKEND LANGGRAPH
+  nestwise-backend-langgraph:
+    build: ./backend-langgraph
+    container_name: langgraph-backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./.env
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    volumes:
+      - ./backend-langgraph:/app
+    command: uvicorn app:app --host 0.0.0.0 --port 8000 --reload
+    depends_on:
+      - mongo
+    networks:
+      - default
+
+  # MONGO (Existing DB)
+  mongo:
+    image: mongo:6.0
+    container_name: nestwise-mongo
+    restart: unless-stopped
+    command: ["mongod", "--config", "/etc/mongod.conf"]
+    volumes:
+      - ./mongo/mongod.conf:/etc/mongod.conf:ro
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "27017:27017"
+    networks:
+      - default
+
+###### NEW MICROSERVICES BELOW ###### NOTE: COMMENTED OUT FOR DEMO PURPOSES ######
+  # # INGEST SERVICE (NEW MICROSERVICE STACK)
+  # nestwise-backend-userfin:
+  #   build: ./backend-userFinancedata
+  #   container_name: userfin-backend
+  #   ports:
+  #     - "8001:8001"
+  #   env_file:
+  #     - ./.env
+  #   volumes:
+  #     - ./backend-userFinancedata:/app
+  #     - ./backend-userFinancedata/data:/data
+  #   depends_on:
+  #     - mongo
+  #     - nestwise-userfin-redis
+  #   restart: unless-stopped
+
+  # nestwise-userfin-worker:
+  #   build: ./backend-userFinancedata
+  #   container_name: userfin-worker
+  #   # command: celery -A app.tasks.celery worker --loglevel=info
+  #   env_file:
+  #     - ./.env
+  #   volumes:
+  #     - ./backend-userFinancedata:/app
+  #     - ./backend-userFinancedata/data:/data
+  #   depends_on:
+  #     - mongo
+  #     - nestwise-userfin-redis
+  #   restart: unless-stopped
+
+  # nestwise-userfin-redis:
+  #   image: redis:7
+  #   container_name: userfin-redis
+  #   ports:
+  #     - "6380:6379"
+  #   restart: unless-stopped
+
+  # USER AUTH SERVICE
+  nestwise-backend-userauth:
+    build: ./backend-userAuth
+    container_name: userauth-backend
+    ports:
+      - "7001:7001"
+    env_file:
+      - ./.env
+    environment:
+      - MONGO_URL=mongodb://mongo:27017
+      - MONGO_DB=nestwise_auth
+    volumes:
+      - ./backend-userAuth:/app
+    command: uvicorn app:app --host 0.0.0.0 --port 7001 --reload
+    depends_on:
+      - mongo
+    restart: unless-stopped
+    networks:
+      - default
+
+
+
+networks:
+  default:
+    driver: bridge
+
+volumes:
+  ingest_pgdata:

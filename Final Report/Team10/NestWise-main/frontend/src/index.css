@@ -1,0 +1,82 @@
+/* Hide scrollbars for all elements */
+* {
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+}
+
+/* Hide scrollbars for webkit browsers */
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* Specifically target html and body */
+html {
+  overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Target the root div where React mounts */
+#root {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+#root::-webkit-scrollbar {
+  display: none;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+
+
+/* SCROLLBAR FOR PROFILE DATA */
+.profile-data-scroll {
+  scrollbar-width: thin !important;
+  -ms-overflow-style: auto !important;
+}
+
+.profile-data-scroll::-webkit-scrollbar {
+  display: block !important;
+  width: 12px !important;
+}
+
+.profile-data-scroll::-webkit-scrollbar-track {
+  background: rgba(241, 241, 241, 0.2) !important;
+  border-radius: 4px !important;
+}
+
+.profile-data-scroll::-webkit-scrollbar-thumb {
+  background: rgba(136, 136, 136, 0.2) !important;
+  border-radius: 4px !important;
+}
+
+.profile-data-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(85, 85, 85, 0.2) !important;
+}

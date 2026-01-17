@@ -1,0 +1,131 @@
+/* Custom styles for react-big-calendar */
+.calendar-container .rbc-calendar {
+  font-family: inherit;
+}
+
+.calendar-container .rbc-header {
+  padding: 8px 12px;
+  font-weight: 600;
+  background-color: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.calendar-container .rbc-month-view {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.calendar-container .rbc-date-cell {
+  padding: 8px;
+  text-align: right;
+}
+
+.calendar-container .rbc-date-cell.rbc-off-range-bg {
+  background-color: #f8fafc;
+  color: #94a3b8;
+}
+
+.calendar-container .rbc-date-cell.rbc-today {
+  background-color: #dbeafe;
+  font-weight: 600;
+}
+
+.calendar-container .rbc-event {
+  border-radius: 4px;
+  padding: 2px 4px;
+  font-size: 12px;
+  line-height: 1.2;
+  margin: 1px 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.calendar-container .rbc-event:hover {
+  opacity: 1 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-container .rbc-event.rbc-selected {
+  box-shadow: 0 0 0 2px #3b82f6;
+}
+
+.calendar-container .rbc-day-slot .rbc-time-slot {
+  border-top: 1px solid #f1f5f9;
+}
+
+.calendar-container .rbc-time-view .rbc-time-gutter {
+  background-color: #f8fafc;
+  border-right: 1px solid #e2e8f0;
+}
+
+.calendar-container .rbc-time-view .rbc-time-content {
+  border-left: 1px solid #e2e8f0;
+}
+
+.calendar-container .rbc-time-header {
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.calendar-container .rbc-time-header-content {
+  border-left: 1px solid #e2e8f0;
+}
+
+.calendar-container .rbc-allday-cell {
+  background-color: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.calendar-container .rbc-show-more {
+  background-color: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.calendar-container .rbc-show-more:hover {
+  background-color: #e2e8f0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .calendar-container .rbc-event {
+    font-size: 10px;
+    padding: 1px 2px;
+  }
+  
+  .calendar-container .rbc-date-cell {
+    padding: 4px;
+  }
+  
+  .calendar-container .rbc-header {
+    padding: 6px 8px;
+    font-size: 14px;
+  }
+}
+
+/* Patient color classes for consistent theming */
+.patient-color-0 { background-color: #3B82F6; }
+.patient-color-1 { background-color: #10B981; }
+.patient-color-2 { background-color: #F59E0B; }
+.patient-color-3 { background-color: #EF4444; }
+.patient-color-4 { background-color: #8B5CF6; }
+.patient-color-5 { background-color: #F97316; }
+.patient-color-6 { background-color: #06B6D4; }
+.patient-color-7 { background-color: #84CC16; }
+
+/* Medication event styling */
+.calendar-container .rbc-event.medication-event {
+  border: 1px solid;
+  background-color: transparent;
+  font-style: italic;
+}
+
+.calendar-container .rbc-event.medication-event:before {
+  content: "💊 ";
+  margin-right: 2px;
+}

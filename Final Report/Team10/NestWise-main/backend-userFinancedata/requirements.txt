@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+SQLAlchemy
+psycopg2-binary
+pydantic
+python-dateutil
+celery[redis]
+boto3
+python-multipart
+alembic
+pydantic-settings
+python-jose

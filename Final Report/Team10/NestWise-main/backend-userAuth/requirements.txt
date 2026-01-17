@@ -1,0 +1,7 @@
+fastapi
+uvicorn[standard]
+pymongo
+python-jose
+argon2-cffi
+pydantic[email]
+python-dotenv
